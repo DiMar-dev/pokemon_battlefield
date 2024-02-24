@@ -2,7 +2,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, ForeignKey, Float
 from sqlalchemy.orm import relationship
 
-Base = declarative_base()
+from battle_stat import Base
 
 
 class AttackFact(Base):
@@ -17,6 +17,7 @@ class AttackFact(Base):
     level = Column(Integer)
     nature_modifier = Column(Float)
     pokemon_id = Column(Integer, ForeignKey('dim_pokemon.id'))
+    hp = Column(Integer)
 
     stat = relationship('StatDimension', foreign_keys=[stat_id])
     move = relationship('MoveDimension', foreign_keys=[move_id])

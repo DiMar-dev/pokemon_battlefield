@@ -1,9 +1,10 @@
 import asyncio
 from time import perf_counter
 
+from battle_stat.battle_notes import init_db_cache, take_battle_notes
 from fetch_poke_data import fetch_stats, fetch_data_sync, \
     POKE_API_POKEMON
-from pokemon import Pokemon
+from model.pokemon import Pokemon\
 
 
 def fetch_init_data():
@@ -42,7 +43,7 @@ def init_pokemon_battlefield():
     return pokemon1_obj, pokemon2_obj
 
 
-def battle(pkm1, pkm2):
+def battle(pkm1: Pokemon, pkm2: Pokemon):
     if pkm1.speed > pkm2.speed:
         attacker, defender = pkm1, pkm2
     else:
@@ -65,6 +66,7 @@ def battle(pkm1, pkm2):
                 print(
                     f"The winner is: {defender.name} with {defender.hp}HP left")
                 break
+            take_battle_notes(attacker, defender)
 
         except Exception as e:
             print(f"An error occurred: {e.args}")
@@ -78,6 +80,7 @@ def battle(pkm1, pkm2):
 
 if __name__ == "__main__":
     fetch_init_data()
+    init_db_cache()
 
     while True:
         like_to_play = input('Would you like to play?(yes/no)')
@@ -87,6 +90,10 @@ if __name__ == "__main__":
 
         try:
             pokemon1, pokemon2 = init_pokemon_battlefield()
+            t1 = perf_counter()
             battle(pokemon1, pokemon2)
+            t2 = perf_counter() - t1
+
+            take_battle_notes(pokemon1, pokemon2, t2)
         except Exception as e:
             print(e)

@@ -1,6 +1,6 @@
 import random
 
-from move import Move
+from model.move import Move
 
 
 class AffectingMove:

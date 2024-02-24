@@ -1,10 +1,10 @@
 import random
 
-from affecting_move import AffectingMove
+from model.affecting_move import AffectingMove
 from exceptions import StatsMissMatchError
 from fetch_poke_data import CACHE_MOVES, fetch_data_sync, \
     POKE_API_MOVE
-from move import Move
+from model.move import Move
 
 ATTACK = 'attack'
 DEFENSE = 'defense'

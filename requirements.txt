@@ -1,4 +1,4 @@
 requests
 aiohttp
 sqlalchemy
-mysql-connector-python
+psycopg2-binary
