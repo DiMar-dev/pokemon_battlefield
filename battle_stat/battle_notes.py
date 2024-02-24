@@ -15,6 +15,10 @@ from model.pokemon import Pokemon
 
 
 def init_db_cache():
+    """
+        Initializes the database cache by loading and caching dimensions for moves, Pokémon, and stats.
+        Populates global cache variables with data fetched from the database to optimize future data retrieval.
+        """
     DBCache.DIM_MOVE_CACHE = {x.name for x in get_all_dim_moves()}
     DBCache.DIM_POKEMON_CACHE = {x.poke_id for x in get_all_dim_pokemons()}
     DBCache.DIM_STATS_CACHE = {(x.name, x.move.name) for x in
@@ -23,6 +27,17 @@ def init_db_cache():
 
 def take_battle_notes(attacker: Pokemon, defender: Pokemon,
                       battle_duration: float = None):
+    """
+        Records notes about a Pokémon battle, including details about the attacker, defender, and the battle outcome.
+        Prepares and saves battle and attack facts to the database for later analysis.
+
+        Args:
+            attacker (Pokemon): The attacking Pokémon in the battle.
+            defender (Pokemon): The defending Pokémon in the battle.
+            battle_duration (float, optional): The duration of the battle in seconds. Defaults to None.
+
+        This function creates and saves dimensional and factual data related to the battle and the Pokémon involved.
+        """
     save_list = []
     attacker_tuple = __write_notes(attacker, save_list)
     defender_tuple = __write_notes(defender, save_list)
@@ -46,6 +61,19 @@ def take_battle_notes(attacker: Pokemon, defender: Pokemon,
 
 
 def __write_notes(pokemon: Pokemon, save_list: list):
+    """
+        Records notes for a single Pokémon's performance in a battle, including its moves and stats.
+        Updates the cache with new dimensional data and appends factual data to the save list for database storage.
+
+        Args:
+            pokemon (Pokemon): The Pokémon for which to write notes.
+            save_list (list): A list to which new data records are appended for batch saving.
+
+        Returns:
+            tuple: A tuple containing the Pokémon's dimensional data and its latest attack fact.
+
+        This function is intended to be used internally by `take_battle_notes` to process each Pokémon involved in a battle.
+        """
     move = pokemon.current_attack.move
     attack = pokemon.current_attack
 

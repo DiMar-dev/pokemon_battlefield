@@ -8,6 +8,10 @@ from model.pokemon import Pokemon\
 
 
 def fetch_init_data():
+    """
+        Initializes the application by loading and fetching Pokémon stats asynchronously.
+        Measures and prints the time taken to fetch all Pokémon stats.
+        """
     print('Loading pokemon data...')
     t1 = perf_counter()
     asyncio.run(fetch_stats())
@@ -16,6 +20,13 @@ def fetch_init_data():
 
 
 def init_pokemon_battlefield():
+    """
+        Initializes the Pokémon battlefield by prompting the user to choose two Pokémon.
+        Fetches data for the chosen Pokémon and creates `Pokemon` instances for them.
+
+        Returns:
+            tuple: A pair of `Pokemon` objects representing the chosen Pokémon for the battle.
+        """
     print('Welcome to the Pokemon battlefield game!')
     print('Please choose your pokemons:')
     pokemon1_name = input('Pokemon 1: ')
@@ -44,6 +55,17 @@ def init_pokemon_battlefield():
 
 
 def battle(pkm1: Pokemon, pkm2: Pokemon):
+    """
+        Simulates a battle between two Pokémon, determining the order based on their speed.
+        Continuously alternates attacks between the two Pokémon until one's HP drops to 0 or below.
+        Records battle notes and handles exceptions during the battle process.
+
+        Args:
+            pkm1 (Pokemon): The first Pokémon participant in the battle.
+            pkm2 (Pokemon): The second Pokémon participant in the battle.
+
+        Prints the outcome of the battle, including the winner and any errors that occurred.
+        """
     if pkm1.speed > pkm2.speed:
         attacker, defender = pkm1, pkm2
     else:
@@ -79,13 +101,19 @@ def battle(pkm1: Pokemon, pkm2: Pokemon):
 
 
 if __name__ == "__main__":
+    """
+        Main execution block of the script.
+        Initializes data and database cache, then continuously prompts the user to start a new Pokémon battle.
+        Fetches initial data for Pokémon, initializes the battlefield, and conducts the battle between the chosen Pokémon.
+        Records battle notes and handles exceptions.
+        """
     fetch_init_data()
     init_db_cache()
 
     while True:
         like_to_play = input('Would you like to play?(yes/no)')
 
-        if like_to_play == 'no':
+        if like_to_play.strip() == 'no':
             break
 
         try:
