@@ -24,7 +24,7 @@ This Pokémon Duel Simulation project is a Python-based application designed to 
   - **`exceptions.py`**: Custom exception definitions for error handling within the simulation's unique contexts.
 
 - **Database and Persistence**:
-  - **`database.py`**: Manages database connections and operations, supporting data persistence for the simulation.
+  - **`__init__.py`** & **`database.py`**: Manages database connections and operations, supporting data persistence for the simulation.
   - Dimensional and fact tables such as **`dim_pokemon.py`**, **`dim_stats.py`**, **`fact_attack.py`**, and **`fact_battle.py`** model the data structure for storing Pokémon attributes, battle statistics, and historical data.
 
 - **Repositories**:
