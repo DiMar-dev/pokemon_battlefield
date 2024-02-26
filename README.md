@@ -30,8 +30,6 @@ This Pokémon Duel Simulation project is a Python-based application designed to 
 - **Repositories**:
   - **`dim_pokemon_repository.py`**, **`dim_stats_repository.py`**, **`dim_move_repository.py`**: Abstract the data access layer, facilitating interaction with the database for fetching and storing Pokémon, their stats, and moves data.
 
-- **`__init__.py`**: Marks the directory as a Python package, allowing for modular import of components.
-
 ---
 
 #### Setup and Execution(without Docker)
