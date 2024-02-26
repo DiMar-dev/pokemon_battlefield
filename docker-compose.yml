@@ -25,4 +25,5 @@ services:
       - DB_HOST=db
       - DB_USER=postgres
       - DB_PASSWORD=admin
+    tty: true
     stdin_open: true
